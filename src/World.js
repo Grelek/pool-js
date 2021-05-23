@@ -3,7 +3,7 @@ import Cue from "./Cue";
 import Hole from "./Hole";
 
 export default class World {
-	constructor(width, height, ctx) {
+	constructor(width, height, ctx, backgroundImage) {
 		this.width = width;
 		this.height = height;
 		this.balls = [];
@@ -11,6 +11,7 @@ export default class World {
 		this.score = 0;
 		this.ctx = ctx;
 		this.isGameOver = false;
+		this.backgroundImage = backgroundImage;
 
 		this.BORDER_WIDTH = 23;
 
@@ -80,8 +81,7 @@ export default class World {
 	}
 
 	render() {
-		// this.ctx.drawImage(backgroundImage, 0, 0);
-		this.ctx.clearRect(0, 0, this.width, this.height);
+		this.ctx.drawImage(this.backgroundImage, 0, 0);
 
 		this.holes.forEach((hole) => this.renderHole(hole));
 		this.balls.forEach((ball) => this.renderBall(ball));

@@ -1,5 +1,6 @@
 import commonjs from '@rollup/plugin-commonjs';
 import css from 'rollup-plugin-css-only';
+import url from '@rollup/plugin-url';
 import livereload from 'rollup-plugin-livereload';
 import resolve from '@rollup/plugin-node-resolve';
 import svelte from 'rollup-plugin-svelte';
@@ -34,7 +35,7 @@ export default {
 		sourcemap: true,
 		format: 'iife',
 		name: 'app',
-		file: 'public/build/bundle.js'
+		file: 'public/bundle.js'
 	},
 	plugins: [
 		svelte({
@@ -46,6 +47,9 @@ export default {
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
 		css({output: 'bundle.css'}),
+
+		// assets copying
+		url(),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In

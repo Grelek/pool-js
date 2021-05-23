@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from "svelte";
 	import World from "./World";
+	import bgPath from "./bg.png";
 
 	let canvas, ctx, world, neo, requestId, backgroundImage;
 
@@ -11,8 +12,9 @@
 	onMount(() => {
 		ctx = canvas.getContext("2d");
 		backgroundImage = new Image();
-		/* backgroundImage.src = "bg.png"; */
-		world = new World(WIDTH, HEIGHT, ctx);
+		backgroundImage.addEventListener("load", () => loop(WIDTH, HEIGHT));
+		backgroundImage.src = bgPath;
+		world = new World(WIDTH, HEIGHT, ctx, backgroundImage);
 
 		canvas.onmousedown = function (e) {
 			if (e.button == 0 && !world.neo.isMoving() && !world.isGameOver) {
@@ -80,8 +82,6 @@
 				world.cue.toY = e.clientY - canvas.getBoundingClientRect().top;
 			}
 		};
-
-		loop(WIDTH, HEIGHT);
 	});
 
 	const loop = (width, height) => {
