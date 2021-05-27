@@ -3,7 +3,12 @@
 	import World from "./World";
 	import bgPath from "./bg.png";
 
-	let canvas, ctx, world, neo, requestId, backgroundImage;
+	let canvas,
+		ctx,
+		world,
+		requestId,
+		backgroundImage,
+		isCanvasClicked = false;
 
 	const WIDTH = 1000;
 	const HEIGHT = 524;
@@ -16,13 +21,20 @@
 		backgroundImage.src = bgPath;
 		world = new World(WIDTH, HEIGHT, ctx, backgroundImage);
 
-		canvas.onmousedown = function (e) {
+		canvas.addEventListener("mousedown", (e) => {
+			isCanvasClicked = true;
 			if (e.button == 0 && !world.neo.isMoving() && !world.isGameOver) {
 				world.cue.show = true;
 			}
-		};
+		});
 
-		canvas.onmouseup = function (e) {
+		document.addEventListener("mouseup", (e) => {
+			if (!isCanvasClicked) {
+				return;
+			} else {
+				isCanvasClicked = false;
+			}
+
 			if (e.button == 0 && !world.neo.isMoving() && !world.isGameOver) {
 				var powerX =
 						(e.clientX -
@@ -48,9 +60,13 @@
 				world.neo.vy = powerY;
 				world.cue.show = false;
 			}
-		};
+		});
 
-		canvas.onmousemove = function (e) {
+		document.addEventListener("mousemove", (e) => {
+			if (!isCanvasClicked) {
+				return;
+			}
+
 			if (e.buttons == 1 && !world.neo.isMoving() && !world.isGameOver) {
 				// To show the cue when already holding the mouse button waiting
 				// for the ball to stop. It's kinda hacking, but it's needed.
@@ -81,7 +97,7 @@
 				world.cue.toX = e.clientX - canvas.getBoundingClientRect().left;
 				world.cue.toY = e.clientY - canvas.getBoundingClientRect().top;
 			}
-		};
+		});
 	});
 
 	const loop = (width, height) => {
