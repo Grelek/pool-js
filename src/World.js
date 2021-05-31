@@ -3,7 +3,7 @@ import Cue from "./Cue";
 import Hole from "./Hole";
 
 export default class World {
-	constructor(width, height, ctx, backgroundImage) {
+	constructor(width, height, ctx, backgroundImage, scoreCallback) {
 		this.width = width;
 		this.height = height;
 		this.balls = [];
@@ -14,6 +14,9 @@ export default class World {
 		this.backgroundImage = backgroundImage;
 
 		this.BORDER_WIDTH = 23;
+
+		this.scoreCallback = scoreCallback;
+		this.scoreCallback(this.score);
 
 		this._init();
 	}
@@ -76,7 +79,7 @@ export default class World {
 		ball.isActive = false;
 
 		if (this.neo.isActive) {
-			this.score++;
+			this.scoreCallback(++this.score);
 		}
 	}
 

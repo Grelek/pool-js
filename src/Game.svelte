@@ -10,6 +10,8 @@
 		backgroundImage,
 		isCanvasClicked = false;
 
+	let span;
+
 	const WIDTH = 1000;
 	const HEIGHT = 524;
 	const MAX_CUE_POWER = 15;
@@ -19,7 +21,14 @@
 		backgroundImage = new Image();
 		backgroundImage.addEventListener("load", () => loop(WIDTH, HEIGHT));
 		backgroundImage.src = bgPath;
-		world = new World(WIDTH, HEIGHT, ctx, backgroundImage);
+
+		world = new World(
+			WIDTH,
+			HEIGHT,
+			ctx,
+			backgroundImage,
+			(score) => (span.innerHTML = score)
+		);
 
 		canvas.addEventListener("mousedown", (e) => {
 			isCanvasClicked = true;
@@ -113,7 +122,6 @@
 		if (!world.neo.isActive || world.balls.length == 1) {
 			// Remember, Neo is also in balls
 			window.cancelAnimationFrame(requestId);
-			requestId = undefined;
 
 			world.isGameOver = true;
 		}
@@ -129,6 +137,10 @@
 </script>
 
 <section class="section has-text-centered">
+	<div class="content">
+		<h1>Score: <span bind:this={span} /></h1>
+	</div>
+
 	<canvas width={WIDTH} height={HEIGHT} bind:this={canvas}>
 		Your browser doesn't support this game.
 	</canvas>
