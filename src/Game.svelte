@@ -128,6 +128,8 @@
 	};
 </script>
 
-<canvas width={WIDTH} height={HEIGHT} bind:this={canvas}>
-	Your browser doesn't support this game.
-</canvas>
+<section class="section has-text-centered">
+	<canvas width={WIDTH} height={HEIGHT} bind:this={canvas}>
+		Your browser doesn't support this game.
+	</canvas>
+</section>
