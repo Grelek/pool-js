@@ -66,23 +66,23 @@ export default class Ball {
 				return;
 			}
 
-			var xDiff = current.x - ball.x;
-			var yDiff = current.y - ball.y;
+			const xDiff = current.x - ball.x;
+			const yDiff = current.y - ball.y;
 
-			var dist = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
+			const dist = Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
 
 			if (dist < current.radius + ball.radius) {
-				var vxDiff = ball.vx - current.vx;
-				var vyDiff = ball.vy - current.vy;
-				var hypo = Math.pow(xDiff, 2) + Math.pow(yDiff, 2);
-				var dot = xDiff * vxDiff + yDiff * vyDiff;
+				const vxDiff = ball.vx - current.vx;
+				const vyDiff = ball.vy - current.vy;
+				const hypo = Math.pow(xDiff, 2) + Math.pow(yDiff, 2);
+				const dot = xDiff * vxDiff + yDiff * vyDiff;
 
 				if (dot > 0) {
-					var colScale = dot / hypo;
-					var xCol = xDiff * colScale;
-					var yCol = yDiff * colScale;
-					var combMass = current.size + ball.size;
-					var weight = (2 * ball.size) / combMass;
+					const colScale = dot / hypo;
+					const xCol = xDiff * colScale;
+					const yCol = yDiff * colScale;
+					const combMass = current.size + ball.size;
+					const weight = (2 * ball.size) / combMass;
 
 					current.vx += weight * xCol;
 					current.vy += weight * yCol;

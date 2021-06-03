@@ -16,7 +16,7 @@ export default class World {
 		this.BORDER_WIDTH = 23;
 
 		this.scoreCallback = scoreCallback;
-		this.scoreCallback(this.score);
+		this.scoreCallback(this.score, this.balls.length);
 
 		this._init();
 	}
@@ -79,8 +79,10 @@ export default class World {
 		ball.isActive = false;
 
 		if (this.neo.isActive) {
-			this.scoreCallback(++this.score);
+			this.score++;
 		}
+
+		this.scoreCallback(this.score, this.balls.length);
 	}
 
 	render() {
@@ -99,18 +101,27 @@ export default class World {
 			this.ctx.closePath();
 
 			this.ctx.beginPath();
-			this.ctx.strokeStyle = "#ff0042";
 			this.ctx.lineWidth = 2;
 			this.ctx.font = "120px sans-serif";
 			this.ctx.textAlign = "center";
-			this.ctx.strokeText("GAME OVER", this.width / 2, 150);
+
+			let finalText;
+			if (this.neo.isActive) {
+				this.ctx.strokeStyle = "#0067e5"
+				finalText = "You won!";
+			} else {
+				this.ctx.strokeStyle = "#ff0042";
+				finalText = "GAME OVER";
+			}
+
+			this.ctx.strokeText(finalText, this.width / 2, 150);
 			this.ctx.closePath();
 
 			this.ctx.beginPath();
 			this.ctx.fillStyle = "#f7d842";
 			this.ctx.font = "50px sans-serif";
 			this.ctx.textAlign = "center";
-			this.ctx.fillText("You ended up with score", this.width / 2, 250);
+			this.ctx.fillText("Final score", this.width / 2, 250);
 			this.ctx.closePath();
 
 			this.ctx.beginPath();

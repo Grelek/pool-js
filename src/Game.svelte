@@ -27,7 +27,30 @@
 			HEIGHT,
 			ctx,
 			backgroundImage,
-			(score) => (span.innerHTML = score)
+			(score, ballsCount) => {
+				span.innerHTML = score;
+
+				if (score > 0 && ballsCount > 1) {
+					const scoreAudio = new Audio(
+						"/mixkit-explainer-video-game-alert-sweep-236.wav"
+					);
+					scoreAudio.play();
+				}
+
+				if (score > 0 && ballsCount == 1) {
+					const winAudio = new Audio(
+						"/mixkit-bonus-earned-in-video-game-2058.wav"
+					);
+					winAudio.play();
+				}
+
+				if (score == 0 && ballsCount > 0) {
+					const gameOverAudio = new Audio(
+						"/mixkit-sad-game-over-trombone-471.wav"
+					);
+					gameOverAudio.play();
+				}
+			}
 		);
 
 		canvas.addEventListener("mousedown", (e) => {
