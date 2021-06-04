@@ -20,11 +20,13 @@
 	const MAX_CUE_POWER = 15;
 
 	onMount(() => {
+		// Prepare canvas
 		ctx = canvas.getContext("2d");
 		backgroundImage = new Image();
 		backgroundImage.addEventListener("load", () => loop(WIDTH, HEIGHT));
 		backgroundImage.src = bgPath;
 
+		// Initialize main game object
 		world = new World(
 			WIDTH,
 			HEIGHT,
@@ -66,6 +68,7 @@
 			}
 		);
 
+		// Events listeners for cue movement
 		canvas.addEventListener("mousedown", (e) => {
 			isCanvasClicked = true;
 			if (e.button == 0 && !world.neo.isMoving() && !world.isGameOver) {
@@ -145,6 +148,7 @@
 		});
 	});
 
+	// Main game loop
 	const loop = (width, height) => {
 		if (!world.isGameOver) {
 			requestId = window.requestAnimationFrame(loop, canvas);
@@ -154,6 +158,7 @@
 		}
 	};
 
+	// Update game state
 	const update = () => {
 		if (!world.neo.isActive || world.balls.length == 1) {
 			// Remember, Neo is also in balls
@@ -167,6 +172,7 @@
 		}
 	};
 
+	// Render wrapper
 	const render = () => {
 		world.render();
 	};

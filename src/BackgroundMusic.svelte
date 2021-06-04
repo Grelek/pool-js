@@ -1,6 +1,7 @@
 <script>
 	import { onMount } from "svelte";
 
+	// Trivial component for "music player"
 	let audioButton;
 	const audio = new Audio("/bensound-theelevatorbossanova.mp3");
 

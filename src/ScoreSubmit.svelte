@@ -3,6 +3,8 @@
 
 	export let showModal = false;
 
+	// Very simple modal for score submission
+
 	let nameInput, name, country, age;
 
 	const close = () => (showModal = false);
@@ -34,7 +36,8 @@
 							bind:this={nameInput}
 							bind:value={name}
 							class="input"
-							class:is-danger={name != undefined && name.length < 5}
+							class:is-danger={name != undefined &&
+								name.length < 5}
 							maxlength="20"
 							type="text"
 							placeholder="Enter your name"
