@@ -2,6 +2,7 @@
 	import { onMount } from "svelte";
 	import World from "./World";
 	import bgPath from "./bg.png";
+	import ScoreSubmit from "./ScoreSubmit.svelte";
 
 	let canvas,
 		ctx,
@@ -10,7 +11,9 @@
 		backgroundImage,
 		isCanvasClicked = false;
 
-	let span, gameContainer;
+	let span,
+		gameContainer,
+		isGameOver = false;
 
 	const WIDTH = 1000;
 	const HEIGHT = 524;
@@ -50,6 +53,7 @@
 						"/mixkit-bonus-earned-in-video-game-2058.wav"
 					);
 					winAudio.play();
+					setTimeout(() => (isGameOver = true), 4000);
 				}
 
 				if (score == 0 && ballsCount > 0) {
@@ -57,6 +61,7 @@
 						"/mixkit-sad-game-over-trombone-471.wav"
 					);
 					gameOverAudio.play();
+					setTimeout(() => (isGameOver = true), 4000);
 				}
 			}
 		);
@@ -182,6 +187,8 @@
 		</main>
 	</div>
 </section>
+
+<ScoreSubmit bind:showModal={isGameOver} />
 
 <style>
 	@keyframes highlightText {
