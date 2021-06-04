@@ -173,7 +173,11 @@
 </script>
 
 <section class="section has-text-centered">
-	<div bind:this={gameContainer}>
+	<aside class="small-screen-warning content">
+		<h1>Sorry, your screen is too small for this game</h1>
+	</aside>
+
+	<div bind:this={gameContainer} class="game-container">
 		<header class="section content">
 			<h1>
 				Score: <span bind:this={span} />
@@ -229,5 +233,21 @@
 	:global(span.afterTada::after) {
 		animation: afterTada 2.5s linear 1;
 		content: "";
+	}
+
+	@media only screen and (min-width: 1200px) {
+		.small-screen-warning {
+			display: none;
+		}
+	}
+
+	@media only screen and (max-width: 1200px) {
+		.small-screen-warning h1 {
+			color: #ff0000;
+		}
+
+		.game-container {
+			display: none;
+		}
 	}
 </style>
