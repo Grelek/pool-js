@@ -76,7 +76,7 @@
 			}
 
 			if (e.button == 0 && !world.neo.isMoving() && !world.isGameOver) {
-				var powerX =
+				const powerX =
 						(e.clientX -
 							canvas.getBoundingClientRect().left -
 							world.neo.x) *
@@ -111,7 +111,7 @@
 				// To show the cue when already holding the mouse button waiting
 				// for the ball to stop. It's kinda hacking, but it's needed.
 				world.cue.show = true;
-				var powerX = Math.abs(
+				const powerX = Math.abs(
 						(e.clientX -
 							canvas.getBoundingClientRect().left -
 							world.neo.x) *
