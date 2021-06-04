@@ -10,7 +10,7 @@
 		backgroundImage,
 		isCanvasClicked = false;
 
-	let span;
+	let span, gameContainer;
 
 	const WIDTH = 1000;
 	const HEIGHT = 524;
@@ -35,6 +35,14 @@
 						"/mixkit-explainer-video-game-alert-sweep-236.wav"
 					);
 					scoreAudio.play();
+					span.classList.add("animated");
+					span.classList.add("beforeTada");
+					span.classList.add("afterTada");
+					setTimeout(() => {
+						span.classList.remove("animated");
+						span.classList.remove("beforeTada");
+						span.classList.remove("afterTada");
+					}, 1000);
 				}
 
 				if (score > 0 && ballsCount == 1) {
@@ -160,11 +168,59 @@
 </script>
 
 <section class="section has-text-centered">
-	<div class="content">
-		<h1>Score: <span bind:this={span} /></h1>
-	</div>
+	<div bind:this={gameContainer}>
+		<header class="section content">
+			<h1>
+				Score: <span bind:this={span} />
+			</h1>
+		</header>
 
-	<canvas width={WIDTH} height={HEIGHT} bind:this={canvas}>
-		Your browser doesn't support this game.
-	</canvas>
+		<main class="section">
+			<canvas width={WIDTH} height={HEIGHT} bind:this={canvas}>
+				Your browser doesn't support this game.
+			</canvas>
+		</main>
+	</div>
 </section>
+
+<style>
+	@keyframes highlightText {
+		50% {
+			color: #ff0000;
+		}
+	}
+
+	@keyframes beforeTada {
+		0% {
+			content: "\01F389\ ";
+		}
+
+		100% {
+			content: "";
+		}
+	}
+
+	@keyframes afterTada {
+		0% {
+			content: "\ \01F389";
+		}
+
+		100% {
+			content: "";
+		}
+	}
+
+	:global(span.animated) {
+		animation: highlightText 1s linear 1;
+	}
+
+	:global(span.beforeTada::before) {
+		animation: beforeTada 2.5s linear 1;
+		content: "";
+	}
+
+	:global(span.afterTada::after) {
+		animation: afterTada 2.5s linear 1;
+		content: "";
+	}
+</style>
